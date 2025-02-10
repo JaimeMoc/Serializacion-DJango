@@ -64,4 +64,11 @@ class ShoppingCartUpdate(View):
         return JsonResponse(data)
     
     def delete(self, request, item_id):
-        data = js
+        item = CartItem.objects.get(id=item_id)
+        item.delete()
+        
+        data = {
+            "message": f"Item {item_id} has been deleted"
+        }
+        
+        return JsonResponse(data, status=201)
